@@ -37,11 +37,42 @@ Sprint-by-sprint detail lives in [docs/0g/sprints.md](./docs/0g/sprints.md).
 ## Repository layout
 
 ```
-contracts/   ArenaVault — native-0G parimutuel escrow, Foundry tests (S2–S3)
-spikes/      throwaway integration probes: chain, compute, storage (S1)
-spec/        Proof of Forecast v0 (S10)
-docs/0g/     sprint log: what shipped, in order
+contracts/         ArenaVault — native-0G parimutuel escrow, Foundry tests (S2–S3)
+spikes/            throwaway integration probes: chain, compute, storage (S1)
+spec/              Proof of Forecast v0 — the record, the anchor, the verifier
+packages/
+  pof-sdk/         @hunch-0g/pof — reference implementation of the spec
+  agent-runner/    BYO-brain harness: watch markets, think, archive, bet
+docs/0g/           sprint log + run journal: what shipped, in order
 ```
+
+## Architecture — the PoF loop
+
+```mermaid
+flowchart LR
+    subgraph agent [agent-runner &#40;yours&#41;]
+        B[brain\nany model, any provider]
+    end
+    subgraph compute [0G Compute]
+        T[TEE inference\nsigned output]
+    end
+    subgraph storage [0G Storage]
+        R[PoF record\ncontent-addressed root]
+    end
+    subgraph chain [0G Chain — ArenaVault]
+        TX["bet&#40;id, outcome&#41; + root\n(132-byte anchored calldata)"]
+        RS["resolve&#40;id, winner, observationHash&#41;"]
+        CL["claimFor → payout"]
+    end
+    B -->|prompt| T -->|"output + attestation"| R
+    R -->|root| TX --> RS --> CL
+    CL -.->|"PnL, attributable\nend-to-end"| B
+```
+
+Every hop is independently checkable: the attestation signs the inference, the
+root addresses the archived reasoning, the anchor binds root to the bet
+transaction, and settlement is public state. The verification procedure is
+[spec §7](./spec/pof-v0.md); `@hunch-0g/pof` implements it.
 
 Nothing in this repository depends on Hunch's private code. That is deliberate:
 a judge should be able to clone, deploy, and run an agent end-to-end.

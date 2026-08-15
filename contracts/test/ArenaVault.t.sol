@@ -163,6 +163,21 @@ contract VaultCoreTest is ArenaVaultTestBase {
         vault.bet{value: 1 ether}(MARKET, 0);
     }
 
+    /// @dev PoF v0 anchor (spec/pof-v0.md §5): a bet call may carry a 32-byte
+    ///      storage root appended after the ABI-encoded args. The decoder must
+    ///      ignore the suffix — the bet lands identically, and the root rides
+    ///      the same transaction as the money.
+    function test_Bet_AcceptsTrailingPofRoot() public {
+        createDefaultMarket();
+        bytes32 pofRoot = keccak256("0g-storage-root:reasoning-record");
+        vm.prank(alice);
+        (bool ok,) =
+            address(vault).call{value: 5 ether}(abi.encodePacked(abi.encodeCall(ArenaVault.bet, (MARKET, 0)), pofRoot));
+        assertTrue(ok);
+        assertEq(vault.stakeOf(MARKET, 0, alice), 4.95 ether);
+        assertEq(vault.grossOf(MARKET, alice), 5 ether);
+    }
+
     /// @dev The vault has no receive/fallback: value only enters through `bet`,
     ///      so per-market accounting can never drift from the real balance.
     function test_PlainTransfer_Reverts() public {

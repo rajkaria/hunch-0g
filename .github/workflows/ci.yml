@@ -37,3 +37,36 @@ jobs:
           node-version: 22
       - run: npm install
       - run: npm run typecheck
+
+  pof-sdk:
+    name: pof-sdk (typecheck + test)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: packages/pof-sdk
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install
+      - run: npm run typecheck
+      - run: npm test
+
+  agent-runner:
+    name: agent-runner (typecheck + test)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: packages/agent-runner
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      # file: dependency on ../pof-sdk — install it first
+      - run: npm install
+        working-directory: packages/pof-sdk
+      - run: npm install
+      - run: npm run typecheck
+      - run: npm test
