@@ -41,7 +41,7 @@ gates, tag-per-sprint) is adopted here directly.
   as the money with zero contract changes, no second tx, no registry to
   operate, and full public verifiability from tx input alone. Pinned on-chain
   behaviour with `test_Bet_AcceptsTrailingPofRoot`; spec §5 defines the
-  132-byte anchored form.
+  100-byte anchored form.
 - **Cost to reverse:** low — v1 can promote the root to a named parameter +
   event without breaking v0 verifiers (spec says so explicitly).
 

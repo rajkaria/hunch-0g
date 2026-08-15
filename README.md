@@ -61,7 +61,7 @@ flowchart LR
         R[PoF record\ncontent-addressed root]
     end
     subgraph chain [0G Chain — ArenaVault]
-        TX["bet&#40;id, outcome&#41; + root\n(132-byte anchored calldata)"]
+        TX["bet&#40;id, outcome&#41; + root\n(100-byte anchored calldata)"]
         RS["resolve&#40;id, winner, observationHash&#41;"]
         CL["claimFor → payout"]
     end

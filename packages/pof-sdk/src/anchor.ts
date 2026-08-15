@@ -7,13 +7,8 @@
  *           ++ abi.encode(id, outcome)  //  64 bytes
  *           ++ root                     //  32 bytes  → 100 bytes total
  *
- * NOTE on length: spec §5's prose says an anchored input is "exactly 132
- * bytes", but its own layout sums to 4 + 64 + 32 = 100 bytes, and the pinning
- * contract test (`test_Bet_AcceptsTrailingPofRoot` in
- * `contracts/test/ArenaVault.t.sol`) builds exactly
- * `abi.encodeCall(bet, (id, outcome)) ++ root` = 100 bytes. This SDK
- * implements the concrete byte layout — 100 bytes anchored, 68 bytes plain —
- * treating the "132" figure as an arithmetic slip in the draft.
+ * The same layout is pinned on-chain by `test_Bet_AcceptsTrailingPofRoot`
+ * in `contracts/test/ArenaVault.t.sol`.
  */
 import {
   concat,

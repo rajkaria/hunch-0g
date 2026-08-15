@@ -9,8 +9,6 @@ describe("anchor (§5)", () => {
   });
 
   it("encodes 100 bytes: selector(4) ++ abi.encode(id, outcome)(64) ++ root(32)", () => {
-    // Spec §5's prose says "132 bytes" but its own layout sums to 100, and the
-    // contract pin test builds abi.encodeCall(bet,(id,outcome)) ++ root = 100.
     const data = encodeAnchoredBet({ marketId: MARKET_ID, outcome: 1, root: ROOT });
     expect(data.length).toBe(2 + 100 * 2);
     expect(data.startsWith(BET_SELECTOR)).toBe(true);
