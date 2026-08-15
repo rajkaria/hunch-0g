@@ -1,0 +1,21 @@
+{
+  "name": "@hunch-0g/spikes",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Throwaway integration spikes against 0G Chain, 0G Compute and 0G Storage. Each prints a real result; none is imported by anything.",
+  "type": "module",
+  "scripts": {
+    "spike:chain": "tsx src/chain.ts",
+    "spike:compute": "tsx src/compute.ts",
+    "spike:storage": "tsx src/storage.ts",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "viem": "^2.21.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0"
+  }
+}

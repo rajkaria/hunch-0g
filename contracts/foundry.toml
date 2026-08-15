@@ -1,0 +1,33 @@
+[profile.default]
+src = "src"
+out = "out"
+libs = ["dependencies"]
+test = "test"
+solc_version = "0.8.24"
+optimizer = true
+optimizer_runs = 2000
+via_ir = true
+evm_version = "cancun"
+fs_permissions = [{ access = "read", path = "./test/fixtures" }]
+
+[profile.default.fuzz]
+runs = 512
+
+[profile.default.invariant]
+runs = 64
+depth = 64
+fail_on_revert = false
+
+[dependencies]
+forge-std = "1.9.4"
+"@openzeppelin-contracts" = "5.1.0"
+
+[soldeer]
+remappings_generate = false
+
+[rpc_endpoints]
+zerog = "${ZEROG_RPC_URL}"
+galileo = "${ZEROG_TESTNET_RPC_URL}"
+
+[etherscan]
+zerog = { key = "${ZEROG_EXPLORER_KEY}", url = "https://chainscan.0g.ai/open/api", chain = 16661 }

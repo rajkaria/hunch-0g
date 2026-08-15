@@ -1,0 +1,102 @@
+{
+  "comment": "Differential payout fixtures shared by contracts/test/Differential.t.sol and test/market-payout-differential.test.ts. The off-chain computeMarketPayouts (src/core/market-payout.ts) is the AUTHORITY for every expected value: the vitest side asserts these expectations against it, the Foundry side replays the same bets through HunchParimutuelVault and asserts identical claims.",
+  "caseCount": 8,
+  "cases": [
+    {
+      "name": "two_sided",
+      "feeBps": 100,
+      "winningOutcome": 0,
+      "betCount": 2,
+      "expectedCount": 1,
+      "bets": [
+        { "user": "alice", "outcome": 0, "grossMicros": 5000000 },
+        { "user": "bob", "outcome": 1, "grossMicros": 5000000 }
+      ],
+      "expected": [{ "user": "alice", "payoutMicros": 9900000 }]
+    },
+    {
+      "name": "three_way_floor_dust",
+      "feeBps": 100,
+      "winningOutcome": 0,
+      "betCount": 3,
+      "expectedCount": 2,
+      "bets": [
+        { "user": "alice", "outcome": 0, "grossMicros": 970000 },
+        { "user": "bob", "outcome": 0, "grossMicros": 1000000 },
+        { "user": "carol", "outcome": 1, "grossMicros": 5000000 }
+      ],
+      "expected": [
+        { "user": "alice", "payoutMicros": 3397609 },
+        { "user": "bob", "payoutMicros": 3502690 }
+      ]
+    },
+    {
+      "name": "winner_also_lost",
+      "feeBps": 100,
+      "winningOutcome": 0,
+      "betCount": 3,
+      "expectedCount": 1,
+      "bets": [
+        { "user": "alice", "outcome": 0, "grossMicros": 2000000 },
+        { "user": "alice", "outcome": 1, "grossMicros": 3000000 },
+        { "user": "bob", "outcome": 1, "grossMicros": 5000000 }
+      ],
+      "expected": [{ "user": "alice", "payoutMicros": 9900000 }]
+    },
+    {
+      "name": "single_participant_winning",
+      "feeBps": 100,
+      "winningOutcome": 0,
+      "betCount": 1,
+      "expectedCount": 1,
+      "bets": [{ "user": "alice", "outcome": 0, "grossMicros": 5000000 }],
+      "expected": [{ "user": "alice", "payoutMicros": 5000000 }]
+    },
+    {
+      "name": "single_participant_losing",
+      "feeBps": 100,
+      "winningOutcome": 1,
+      "betCount": 1,
+      "expectedCount": 1,
+      "bets": [{ "user": "alice", "outcome": 0, "grossMicros": 5000000 }],
+      "expected": [{ "user": "alice", "payoutMicros": 5000000 }]
+    },
+    {
+      "name": "single_participant_both_sides",
+      "feeBps": 100,
+      "winningOutcome": 0,
+      "betCount": 2,
+      "expectedCount": 1,
+      "bets": [
+        { "user": "alice", "outcome": 0, "grossMicros": 2000000 },
+        { "user": "alice", "outcome": 1, "grossMicros": 3000000 }
+      ],
+      "expected": [{ "user": "alice", "payoutMicros": 5000000 }]
+    },
+    {
+      "name": "undistributable_all_losers",
+      "feeBps": 100,
+      "winningOutcome": 1,
+      "betCount": 2,
+      "expectedCount": 0,
+      "bets": [
+        { "user": "alice", "outcome": 0, "grossMicros": 5000000 },
+        { "user": "bob", "outcome": 0, "grossMicros": 5000000 }
+      ],
+      "expected": []
+    },
+    {
+      "name": "multi_trade_same_user",
+      "feeBps": 100,
+      "winningOutcome": 0,
+      "betCount": 3,
+      "expectedCount": 1,
+      "bets": [
+        { "user": "alice", "outcome": 0, "grossMicros": 1000000 },
+        { "user": "alice", "outcome": 0, "grossMicros": 1000000 },
+        { "user": "bob", "outcome": 1, "grossMicros": 4000000 }
+      ],
+      "expected": [{ "user": "alice", "payoutMicros": 5940000 }]
+    }
+  ]
+}

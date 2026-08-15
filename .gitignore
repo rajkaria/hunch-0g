@@ -1,0 +1,26 @@
+# foundry
+contracts/out/
+contracts/cache/
+contracts/broadcast/
+contracts/dependencies/
+
+# node
+node_modules/
+dist/
+*.tsbuildinfo
+
+# env — never commit keys
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# spike output is regenerated, not reviewed
+spikes/out/
+
+# os / editor
+.DS_Store
+.vscode/
+.idea/
+*.log
