@@ -10,7 +10,16 @@
     "noEmit": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+
+    // ethers ships no "types" condition in its exports map, so TypeScript
+    // resolves lib.esm/*.d.ts for our ESM sources and lib.commonjs/*.d.ts for
+    // the CommonJS declarations inside both 0G SDKs. Those are two distinct
+    // declaration identities — passing a `Wallet` into `Indexer.upload` then
+    // fails on private-field mismatch. Pinning one copy makes the boundary
+    // typecheck; it is a declaration-only mapping and does not affect runtime
+    // resolution, which stays on the ESM build.
+    "paths": { "ethers": ["./node_modules/ethers/lib.commonjs/index.d.ts"] }
   },
   "include": ["src/**/*.ts"]
 }

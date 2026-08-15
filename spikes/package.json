@@ -5,12 +5,15 @@
   "description": "Throwaway integration spikes against 0G Chain, 0G Compute and 0G Storage. Each prints a real result; none is imported by anything.",
   "type": "module",
   "scripts": {
-    "spike:chain": "tsx src/chain.ts",
-    "spike:compute": "tsx src/compute.ts",
-    "spike:storage": "tsx src/storage.ts",
+    "spike:chain": "node --env-file-if-exists=.env --import tsx src/chain.ts",
+    "spike:compute": "node --env-file-if-exists=.env --import tsx src/compute.ts",
+    "spike:storage": "node --env-file-if-exists=.env --import tsx src/storage.ts",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@0glabs/0g-serving-broker": "^0.7.8",
+    "@0glabs/0g-ts-sdk": "^0.3.3",
+    "ethers": "6.13.1",
     "viem": "^2.21.0"
   },
   "devDependencies": {

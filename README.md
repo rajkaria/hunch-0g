@@ -23,7 +23,7 @@ you can clone and point at 0G mainnet without any credential of ours.
 
 | | |
 |---|---|
-| Sprint | **S0 — scaffold** |
+| Sprint | **S1 — integration spikes** |
 | Mainnet vault | not yet deployed (S3) |
 | Chain | 0G Aristotle mainnet, id **16661**, `https://evmrpc.0g.ai` |
 | Explorer | https://chainscan.0g.ai |
@@ -50,8 +50,19 @@ cd contracts && forge soldeer install && forge test
 ```
 
 ```bash
-cd spikes && npm install && cp .env.example .env   # then fill .env
-npm run spike:chain
+cd spikes && npm install
+npm run spike:chain      # 0G Chain — head, fees, a root-carrying transaction
+npm run spike:storage    # 0G Storage — merkle root, upload, verified round trip
+npm run spike:compute    # 0G Compute — providers, signed inference, TEE verdict
+```
+
+Every spike is **read-only by default** and degrades gracefully when a key is
+missing, so the commands above work on a fresh clone with no `.env` at all.
+To let one spend real 0G — broadcast, pay a storage fee, or burn inference
+credits — copy `.env.example` to `.env`, fill it, and opt in per run:
+
+```bash
+npm run spike:storage -- --send
 ```
 
 ---
