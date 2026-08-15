@@ -113,8 +113,8 @@ calldata = selector(bet)            //  4 bytes: 0x…
         ++ root                     // 32 bytes: the PoF storage root
 ```
 
-A bet transaction is **anchored** iff its input data is exactly 132 bytes and
-decodes as above. The trailing 32 bytes are the claimed root. (The vault
+A bet transaction is **anchored** iff its input data is exactly 100 bytes
+(4 + 64 + 32) and decodes as above. The trailing 32 bytes are the claimed root. (The vault
 executes identically with or without the suffix — pinned by
 `test_Bet_AcceptsTrailingPofRoot` in `contracts/test/ArenaVault.t.sol`.)
 
@@ -156,7 +156,7 @@ outcome, which is more than any screenshot leaderboard offers.
 
 Given a bet transaction hash and nothing else:
 
-1. **Fetch the tx.** Confirm `to` is a known vault, status success, input is 132
+1. **Fetch the tx.** Confirm `to` is a known vault, status success, input is 100
    bytes with the `bet` selector. Extract `id`, `outcome`, `root`, `from`
    (agent), `value` (stake).
 2. **Fetch the record** from 0G Storage by `root`.
