@@ -3,20 +3,79 @@
   "created_at": 1786780702,
   "spec_path": "rajkaria/hunch docs/0g/sprints.md (private monorepo — 17 sprints, S0-S10 = Wave 3)",
   "goal": "Complete every Wave 3 sprint completable from this sandbox; name what is blocked and why",
-  "status": "running",
+  "status": "complete-at-frontier",
   "current_sprint": 10,
   "sprints": [
-    { "id": 0, "title": "S0 scaffold + collision check", "status": "done", "commit": "7f52ab1", "tag": "0g-sprint-0" },
-    { "id": 1, "title": "S1 three spikes (chain/compute/storage) + SPIKES.md", "status": "code-complete-gate-open", "commit": "8e05be5", "note": "spikes written + typechecked; GATE OPEN — running them needs funded wallet + 0G egress (execution-plan §7 items 3-5); TEE-signature retrievability therefore still unrecorded" },
-    { "id": 2, "title": "S2 ArenaVault + differential fixtures @18dp + Foundry suite", "status": "done-deploy-pending", "commit": "f494cb3", "tag": "0g-sprint-2 (local; git proxy refuses tag refs)", "note": "Galileo deploy pending: no 0G RPC egress / deployer key in sandbox; Deploy.s.sol + runbook ready" },
-    { "id": 3, "title": "S3 mainnet rail", "status": "blocked", "note": "keystone; needs mainnet 0G + operator keypair (§7 items 3-4) + monorepo push access" },
-    { "id": 4, "title": "S4 G1 0G Compute as LlmClient", "status": "blocked", "note": "monorepo (read-only here); downstream of S3" },
-    { "id": 5, "title": "S5 G2 PoF attestation layer", "status": "blocked", "note": "monorepo; design gated on S1 compute spike result" },
-    { "id": 6, "title": "S6 G3 0G Storage archive tier", "status": "blocked", "note": "monorepo" },
-    { "id": 7, "title": "S7 Arena surface shell", "status": "blocked", "note": "monorepo" },
-    { "id": 8, "title": "S8 Arena markets + cron", "status": "blocked", "note": "monorepo; gate needs 24h unattended on mainnet" },
-    { "id": 9, "title": "S9 leaderboard + drill-down + Impact Meter", "status": "blocked", "note": "monorepo" },
-    { "id": 10, "title": "S10 public repo: PoF spec + pof-sdk + agent-runner + README; submission kit", "status": "in-progress", "note": "spec done; sdk + runner building; video/X-post/AKINDO form are human actions" }
+    {
+      "id": 0,
+      "title": "S0 scaffold + collision check",
+      "status": "done",
+      "commit": "7f52ab1",
+      "tag": "0g-sprint-0"
+    },
+    {
+      "id": 1,
+      "title": "S1 three spikes (chain/compute/storage) + SPIKES.md",
+      "status": "code-complete-gate-open",
+      "commit": "8e05be5",
+      "note": "spikes written + typechecked; GATE OPEN — running them needs funded wallet + 0G egress (execution-plan §7 items 3-5); TEE-signature retrievability therefore still unrecorded"
+    },
+    {
+      "id": 2,
+      "title": "S2 ArenaVault + differential fixtures @18dp + Foundry suite",
+      "status": "done-deploy-pending",
+      "commit": "f494cb3",
+      "tag": "0g-sprint-2 (local; git proxy refuses tag refs)",
+      "note": "Galileo deploy pending: no 0G RPC egress / deployer key in sandbox; Deploy.s.sol + runbook ready"
+    },
+    {
+      "id": 3,
+      "title": "S3 mainnet rail",
+      "status": "blocked",
+      "note": "keystone; needs mainnet 0G + operator keypair (§7 items 3-4) + monorepo push access"
+    },
+    {
+      "id": 4,
+      "title": "S4 G1 0G Compute as LlmClient",
+      "status": "blocked",
+      "note": "monorepo (read-only here); downstream of S3"
+    },
+    {
+      "id": 5,
+      "title": "S5 G2 PoF attestation layer",
+      "status": "blocked",
+      "note": "monorepo; design gated on S1 compute spike result"
+    },
+    {
+      "id": 6,
+      "title": "S6 G3 0G Storage archive tier",
+      "status": "blocked",
+      "note": "monorepo"
+    },
+    {
+      "id": 7,
+      "title": "S7 Arena surface shell",
+      "status": "blocked",
+      "note": "monorepo"
+    },
+    {
+      "id": 8,
+      "title": "S8 Arena markets + cron",
+      "status": "blocked",
+      "note": "monorepo; gate needs 24h unattended on mainnet"
+    },
+    {
+      "id": 9,
+      "title": "S9 leaderboard + drill-down + Impact Meter",
+      "status": "blocked",
+      "note": "monorepo"
+    },
+    {
+      "id": 10,
+      "title": "S10 public repo: PoF spec + pof-sdk + agent-runner + README; submission kit",
+      "status": "public-artifacts-done",
+      "note": "spec + pof-sdk (56 tests) + agent-runner (36 tests) + README/CI shipped; video/X/AKINDO are human actions"
+    }
   ],
   "verify_cmd": "contracts: forge fmt --check && forge build --sizes && forge test · each ts workspace: npm install && npm run typecheck [&& npm test]",
   "blockers": [
@@ -25,5 +84,5 @@
     "rajkaria/hunch attached read-only — monorepo sprints S4-S9 cannot land from here",
     "Session git proxy refuses pushing tag refs (branch pushes fine)"
   ],
-  "notes": "Run style adopted from docs/bazaar/runs/ocean-* (the boil-the-ocean skill itself is not in any of the account's four GitHub repos)"
+  "notes": "All code-side Wave 3 work done and gated (51 forge + 56 sdk + 36 runner tests, spikes typecheck). Remaining items are capital/keys/egress + monorepo access — see REPORT.md unlock list."
 }
