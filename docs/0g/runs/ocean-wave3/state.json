@@ -7,7 +7,7 @@
   "current_sprint": 10,
   "sprints": [
     { "id": 0, "title": "S0 scaffold + collision check", "status": "done", "commit": "7f52ab1", "tag": "0g-sprint-0" },
-    { "id": 1, "title": "S1 three spikes (chain/compute/storage) + SPIKES.md", "status": "code-complete-gate-open", "note": "spikes written + typechecked; GATE OPEN — running them needs funded wallet + 0G egress (execution-plan §7 items 3-5); TEE-signature retrievability therefore still unrecorded" },
+    { "id": 1, "title": "S1 three spikes (chain/compute/storage) + SPIKES.md", "status": "code-complete-gate-open", "commit": "8e05be5", "note": "spikes written + typechecked; GATE OPEN — running them needs funded wallet + 0G egress (execution-plan §7 items 3-5); TEE-signature retrievability therefore still unrecorded" },
     { "id": 2, "title": "S2 ArenaVault + differential fixtures @18dp + Foundry suite", "status": "done-deploy-pending", "commit": "f494cb3", "tag": "0g-sprint-2 (local; git proxy refuses tag refs)", "note": "Galileo deploy pending: no 0G RPC egress / deployer key in sandbox; Deploy.s.sol + runbook ready" },
     { "id": 3, "title": "S3 mainnet rail", "status": "blocked", "note": "keystone; needs mainnet 0G + operator keypair (§7 items 3-4) + monorepo push access" },
     { "id": 4, "title": "S4 G1 0G Compute as LlmClient", "status": "blocked", "note": "monorepo (read-only here); downstream of S3" },

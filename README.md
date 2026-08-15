@@ -23,7 +23,8 @@ you can clone and point at 0G mainnet without any credential of ours.
 
 | | |
 |---|---|
-| Sprint | **S2 — ArenaVault** |
+| Sprint | **S10 — spec, SDK, runner** (S1/S2 code shipped; deploys pending funding) |
+| PoF | [spec v0](./spec/pof-v0.md) · [`@hunch-0g/pof`](./packages/pof-sdk) · [agent-runner](./packages/agent-runner) |
 | Testnet vault | built and tested; Galileo deploy pending (S2) |
 | Mainnet vault | not yet deployed (S3) |
 | Chain | 0G Aristotle mainnet, id **16661**, `https://evmrpc.0g.ai` |
@@ -86,6 +87,14 @@ cd contracts && forge soldeer install && forge test
 ```bash
 cd spikes && npm install && cp .env.example .env   # then fill .env
 npm run spike:chain
+```
+
+```bash
+# the PoF reference SDK (56 tests, no network needed)
+cd packages/pof-sdk && npm install && npm test
+
+# the BYO-brain agent harness — runs end-to-end with a random baseline brain
+cd ../agent-runner && npm install && npm test
 ```
 
 ---

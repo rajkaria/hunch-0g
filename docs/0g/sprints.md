@@ -7,10 +7,10 @@ click through.
 | Sprint | Scope | State | Tag |
 |---|---|---|---|
 | S0 | Repo scaffold: Foundry + spikes workspaces, CI, differential fixtures | shipped | `0g-sprint-0` |
-| S1 | Integration spikes: 0G Chain, Compute (TEE), Storage | blocked — funding | — |
-| S2 | `ArenaVault` — native-0G parimutuel escrow, Foundry suite, Galileo deploy | code shipped; **deploy outstanding** | `0g-sprint-2` — held until the deploy lands |
+| S1 | Integration spikes: 0G Chain, Compute (TEE), Storage | code shipped; **run gate open** — needs funded wallet | — |
+| S2 | `ArenaVault` — native-0G parimutuel escrow, Foundry suite, Galileo deploy | code shipped; **deploy outstanding** | `0g-sprint-2` |
 | S3 | Mainnet (Aristotle) deploy + published addresses | blocked — funding | — |
-| S10 | Proof of Forecast v0 spec | not started | — |
+| S10 | PoF v0 spec + `@hunch-0g/pof` SDK + agent runner | public artifacts shipped; submission kit is human work | — |
 
 ---
 
@@ -25,7 +25,29 @@ dependencies and read the differential fixtures before any contract existed.
 
 ## S1 — integration spikes
 
-Blocked on funding. Nothing in S2 depends on it.
+Written and typechecked; **not yet run**. Three throwaway probes under
+`spikes/src/`, each printing a labelled real result once executed with a
+funded key (`spikes/SPIKES.md` has the run commands and a RESULTS table that is
+honestly all "NOT YET RUN"):
+
+- `spike:chain` — viem connectivity + a `HelloZeroG` deploy to Galileo and
+  read-back.
+- `spike:compute` — serving-broker ledger, TEE-acknowledged service listing,
+  one inference, then the raw attestation fetch + verification. Ends with
+  `TEE_SIGNATURE_RETRIEVABLE: true/false` — the single output the PoF
+  attestation design (and monorepo S5) gates on.
+- `spike:storage` — canonical-bytes upload via the turbo indexer, download by
+  root hash, byte-identical round-trip, latency + observed fee.
+
+Dependency reality (differs from the plan's remembered names):
+`@0glabs/0g-serving-broker@0.7.8` (wrapping `@0gfoundation/0g-compute-ts-sdk`),
+`@0glabs/0g-ts-sdk@0.3.3`, `ethers@6.13.1` pinned exact (the ts-sdk peer pin).
+One drift flag: the compute SDK assumes testnet chain id **16602** while the S0
+constants say 16601 — the spikes trust the RPC's reported id; if Galileo really
+is 16602 now, fix `[etherscan] galileo` in `contracts/foundry.toml` to match
+before `--verify`.
+
+Nothing in S2 depends on this; S5's design does.
 
 ## S2 — ArenaVault
 
@@ -148,3 +170,29 @@ cast send $VAULT "bet(bytes32,uint8)" $(cast keccak "0g-galileo-smoke-1") 0 \
 Blocked on funding. The mainnet deploy is the same script against `--rpc-url
 zerog`; the vault is not upgradeable, so the mainnet address is final once
 published.
+
+## S10 — PoF spec, SDK, agent runner (public artifacts)
+
+Shipped ahead of S3–S9 because none of it needs a deployed vault to be correct,
+and all of it makes the later sprints faster.
+
+- **`spec/pof-v0.md`** — Proof of Forecast v0: the record (§3), canonical form
+  + keccak hashing (§4), the **calldata anchor** (§5 — the 32-byte storage root
+  appended after `bet`'s ABI-encoded args; 100-byte anchored form, pinned
+  on-chain by `test_Bet_AcceptsTrailingPofRoot`), attestation levels (§6 —
+  level 2 TEE-signed, level 1 operator-signed; level 2 stays unclaimed until
+  S1's compute spike closes its gate), and the 7-step verification procedure
+  (§7). The anchor means the deployed `bet(bytes32,uint8)` signature never
+  changes: intention → record → root → the same transaction as the money.
+- **`packages/pof-sdk`** — `@hunch-0g/pof`, the reference implementation.
+  viem-only runtime; every I/O injected; 56 tests, none touching a network.
+  Building it caught a byte-count slip in the spec draft (132 vs the real 100)
+  — the Foundry pin already used 100; prose corrected.
+- **`packages/agent-runner`** — the BYO-brain harness: watch markets → brain →
+  record → upload → anchored bet → claim + PnL. Ports-and-adapters, mock
+  adapters for tests, a random reference brain so it runs with zero LLM keys,
+  and a `verify <txHash>` CLI wrapping the SDK's §7 checker.
+
+Still open in S10, all human actions: demo video, the mandatory X post, the
+AKINDO form (and the submission drafts live monorepo-side per the public-repo
+boundary rule).
