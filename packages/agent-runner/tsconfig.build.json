@@ -1,0 +1,12 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "declaration": true,
+    "outDir": "dist",
+    // The built output must import the SDK as a package (dist), not via the
+    // source path mapping used for dev.
+    "paths": {}
+  },
+  "include": ["src"]
+}

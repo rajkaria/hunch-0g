@@ -1,0 +1,44 @@
+{
+  "name": "@hunch-0g/agent-runner",
+  "version": "0.0.1",
+  "description": "BYO-brain agent harness for 0G Arena: watches an ArenaVault, asks a user-supplied Brain for a forecast, produces the PoF v0 record (intention -> 0G Storage upload -> 100-byte anchored bet calldata), and claims/reports PnL after resolution. The reference PRODUCER of spec/pof-v0.md records.",
+  "license": "MIT",
+  "private": false,
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "bin": {
+    "arena-agent": "./dist/cli.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "build": "tsc -p tsconfig.build.json",
+    "tick": "tsx src/cli.ts tick",
+    "watch:agent": "tsx src/cli.ts watch",
+    "verify": "tsx src/cli.ts verify",
+    "cli": "tsx src/cli.ts"
+  },
+  "dependencies": {
+    "@0glabs/0g-ts-sdk": "^0.3.3",
+    "@hunch-0g/pof": "file:../pof-sdk",
+    "ethers": "6.13.1",
+    "viem": "^2.21.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0",
+    "vitest": "^2.1.0"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "lib": ["ES2022"],
+    "types": ["node"],
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "paths": {
+      // Resolve the SDK straight to its SOURCE so typecheck/tests/tsx need no
+      // pre-built ../pof-sdk/dist. The package.json `file:` dependency remains
+      // the resolution path for built (dist) usage. Same mapping lives in
+      // vitest.config.ts (resolve.alias).
+      "@hunch-0g/pof": ["../pof-sdk/src/index.ts"]
+    }
+  },
+  "include": ["src", "test", "vitest.config.ts"]
+}
