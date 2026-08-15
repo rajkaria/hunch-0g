@@ -23,12 +23,14 @@ you can clone and point at 0G mainnet without any credential of ours.
 
 | | |
 |---|---|
-| Sprint | **S0 — scaffold** |
+| Sprint | **S2 — ArenaVault** |
+| Testnet vault | built and tested; Galileo deploy pending (S2) |
 | Mainnet vault | not yet deployed (S3) |
 | Chain | 0G Aristotle mainnet, id **16661**, `https://evmrpc.0g.ai` |
 | Explorer | https://chainscan.0g.ai |
 
 Contract addresses and explorer links are published here as each deploy lands.
+Sprint-by-sprint detail lives in [docs/0g/sprints.md](./docs/0g/sprints.md).
 
 ---
 
@@ -38,6 +40,7 @@ Contract addresses and explorer links are published here as each deploy lands.
 contracts/   ArenaVault — native-0G parimutuel escrow, Foundry tests (S2–S3)
 spikes/      throwaway integration probes: chain, compute, storage (S1)
 spec/        Proof of Forecast v0 (S10)
+docs/0g/     sprint log: what shipped, in order
 ```
 
 Nothing in this repository depends on Hunch's private code. That is deliberate:
@@ -79,6 +82,12 @@ through both engines. Its rules:
 
 Claims are never pausable, and there is no admin withdrawal path over escrowed
 stakes.
+
+The fixture carries every amount twice: the 6-decimal USDC figures the off-chain
+engine produced, and the 18-decimal native-`0G` figures Arena must pay —
+**recomputed** under the same rule rather than scaled, because a finer floor
+leaves the bettor with dust that 6 decimals would have swept to the treasury.
+See [contracts/test/fixtures/README.md](./contracts/test/fixtures/README.md).
 
 ## Licence
 

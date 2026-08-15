@@ -1,5 +1,5 @@
 {
-  "comment": "Differential payout fixtures shared by contracts/test/Differential.t.sol and test/market-payout-differential.test.ts. The off-chain computeMarketPayouts (src/core/market-payout.ts) is the AUTHORITY for every expected value: the vitest side asserts these expectations against it, the Foundry side replays the same bets through HunchParimutuelVault and asserts identical claims.",
+  "comment": "Differential payout fixtures for 0G Arena. Every scenario is carried over from Hunch's shared fixture, whose expectations are asserted against the off-chain computeMarketPayouts (src/core/market-payout.ts) — the AUTHORITY for this payout rule. Each amount is given twice: *Micros is the 6-decimal USDC value the authority produced, kept for provenance; *Wei is the 18-decimal native-0G value ArenaVault must pay, RECOMPUTED under the same rule at the new scale (NOT the micros scaled by 1e12 — see README.md). contracts/test/Differential.t.sol replays the bets through ArenaVault and asserts the *Wei expectations.",
   "caseCount": 8,
   "cases": [
     {
@@ -9,25 +9,28 @@
       "betCount": 2,
       "expectedCount": 1,
       "bets": [
-        { "user": "alice", "outcome": 0, "grossMicros": 5000000 },
-        { "user": "bob", "outcome": 1, "grossMicros": 5000000 }
+        { "user": "alice", "outcome": 0, "grossWei": 5000000000000000000, "grossMicros": 5000000 },
+        { "user": "bob", "outcome": 1, "grossWei": 5000000000000000000, "grossMicros": 5000000 }
       ],
-      "expected": [{ "user": "alice", "payoutMicros": 9900000 }]
+      "expected": [
+        { "user": "alice", "payoutWei": 9900000000000000000, "payoutMicros": 9900000 }
+      ]
     },
     {
       "name": "three_way_floor_dust",
+      "comment": "The ONLY case where the 18-decimal expectation is not the 6-decimal one scaled by 1e12: the winners recover 999999999999 wei of what the 6-decimal engine floors into the treasury, and 1 wei of dust remains.",
       "feeBps": 100,
       "winningOutcome": 0,
       "betCount": 3,
       "expectedCount": 2,
       "bets": [
-        { "user": "alice", "outcome": 0, "grossMicros": 970000 },
-        { "user": "bob", "outcome": 0, "grossMicros": 1000000 },
-        { "user": "carol", "outcome": 1, "grossMicros": 5000000 }
+        { "user": "alice", "outcome": 0, "grossWei": 970000000000000000, "grossMicros": 970000 },
+        { "user": "bob", "outcome": 0, "grossWei": 1000000000000000000, "grossMicros": 1000000 },
+        { "user": "carol", "outcome": 1, "grossWei": 5000000000000000000, "grossMicros": 5000000 }
       ],
       "expected": [
-        { "user": "alice", "payoutMicros": 3397609 },
-        { "user": "bob", "payoutMicros": 3502690 }
+        { "user": "alice", "payoutWei": 3397609644670050761, "payoutMicros": 3397609 },
+        { "user": "bob", "payoutWei": 3502690355329949238, "payoutMicros": 3502690 }
       ]
     },
     {
@@ -37,11 +40,13 @@
       "betCount": 3,
       "expectedCount": 1,
       "bets": [
-        { "user": "alice", "outcome": 0, "grossMicros": 2000000 },
-        { "user": "alice", "outcome": 1, "grossMicros": 3000000 },
-        { "user": "bob", "outcome": 1, "grossMicros": 5000000 }
+        { "user": "alice", "outcome": 0, "grossWei": 2000000000000000000, "grossMicros": 2000000 },
+        { "user": "alice", "outcome": 1, "grossWei": 3000000000000000000, "grossMicros": 3000000 },
+        { "user": "bob", "outcome": 1, "grossWei": 5000000000000000000, "grossMicros": 5000000 }
       ],
-      "expected": [{ "user": "alice", "payoutMicros": 9900000 }]
+      "expected": [
+        { "user": "alice", "payoutWei": 9900000000000000000, "payoutMicros": 9900000 }
+      ]
     },
     {
       "name": "single_participant_winning",
@@ -49,8 +54,12 @@
       "winningOutcome": 0,
       "betCount": 1,
       "expectedCount": 1,
-      "bets": [{ "user": "alice", "outcome": 0, "grossMicros": 5000000 }],
-      "expected": [{ "user": "alice", "payoutMicros": 5000000 }]
+      "bets": [
+        { "user": "alice", "outcome": 0, "grossWei": 5000000000000000000, "grossMicros": 5000000 }
+      ],
+      "expected": [
+        { "user": "alice", "payoutWei": 5000000000000000000, "payoutMicros": 5000000 }
+      ]
     },
     {
       "name": "single_participant_losing",
@@ -58,8 +67,12 @@
       "winningOutcome": 1,
       "betCount": 1,
       "expectedCount": 1,
-      "bets": [{ "user": "alice", "outcome": 0, "grossMicros": 5000000 }],
-      "expected": [{ "user": "alice", "payoutMicros": 5000000 }]
+      "bets": [
+        { "user": "alice", "outcome": 0, "grossWei": 5000000000000000000, "grossMicros": 5000000 }
+      ],
+      "expected": [
+        { "user": "alice", "payoutWei": 5000000000000000000, "payoutMicros": 5000000 }
+      ]
     },
     {
       "name": "single_participant_both_sides",
@@ -68,10 +81,12 @@
       "betCount": 2,
       "expectedCount": 1,
       "bets": [
-        { "user": "alice", "outcome": 0, "grossMicros": 2000000 },
-        { "user": "alice", "outcome": 1, "grossMicros": 3000000 }
+        { "user": "alice", "outcome": 0, "grossWei": 2000000000000000000, "grossMicros": 2000000 },
+        { "user": "alice", "outcome": 1, "grossWei": 3000000000000000000, "grossMicros": 3000000 }
       ],
-      "expected": [{ "user": "alice", "payoutMicros": 5000000 }]
+      "expected": [
+        { "user": "alice", "payoutWei": 5000000000000000000, "payoutMicros": 5000000 }
+      ]
     },
     {
       "name": "undistributable_all_losers",
@@ -80,8 +95,8 @@
       "betCount": 2,
       "expectedCount": 0,
       "bets": [
-        { "user": "alice", "outcome": 0, "grossMicros": 5000000 },
-        { "user": "bob", "outcome": 0, "grossMicros": 5000000 }
+        { "user": "alice", "outcome": 0, "grossWei": 5000000000000000000, "grossMicros": 5000000 },
+        { "user": "bob", "outcome": 0, "grossWei": 5000000000000000000, "grossMicros": 5000000 }
       ],
       "expected": []
     },
@@ -92,11 +107,13 @@
       "betCount": 3,
       "expectedCount": 1,
       "bets": [
-        { "user": "alice", "outcome": 0, "grossMicros": 1000000 },
-        { "user": "alice", "outcome": 0, "grossMicros": 1000000 },
-        { "user": "bob", "outcome": 1, "grossMicros": 4000000 }
+        { "user": "alice", "outcome": 0, "grossWei": 1000000000000000000, "grossMicros": 1000000 },
+        { "user": "alice", "outcome": 0, "grossWei": 1000000000000000000, "grossMicros": 1000000 },
+        { "user": "bob", "outcome": 1, "grossWei": 4000000000000000000, "grossMicros": 4000000 }
       ],
-      "expected": [{ "user": "alice", "payoutMicros": 5940000 }]
+      "expected": [
+        { "user": "alice", "payoutWei": 5940000000000000000, "payoutMicros": 5940000 }
+      ]
     }
   ]
 }

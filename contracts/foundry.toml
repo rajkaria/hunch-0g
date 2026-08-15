@@ -31,3 +31,4 @@ galileo = "${ZEROG_TESTNET_RPC_URL}"
 
 [etherscan]
 zerog = { key = "${ZEROG_EXPLORER_KEY}", url = "https://chainscan.0g.ai/open/api", chain = 16661 }
+galileo = { key = "${ZEROG_EXPLORER_KEY}", url = "https://chainscan-galileo.0g.ai/open/api", chain = 16601 }
