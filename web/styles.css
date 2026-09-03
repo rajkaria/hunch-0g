@@ -33,13 +33,6 @@
   src: url("./fonts/inter-latin-600-normal.woff2") format("woff2");
 }
 @font-face {
-  font-family: "Inter";
-  font-style: normal;
-  font-weight: 900;
-  font-display: swap;
-  src: url("./fonts/inter-latin-900-normal.woff2") format("woff2");
-}
-@font-face {
   font-family: "JetBrains Mono";
   font-style: normal;
   font-weight: 400;
@@ -69,13 +62,13 @@
   --violet-2: #a78bfa;
   --violet-3: #c4b5fd;
   --violet-deep: #4c1d95;
-  /* Hunch brand — the operator's palette. Anything that *is* Hunch wears lime. */
-  --lime: #cbff5d;
-  --lime-2: #dfff9b;
-  --lime-3: #b6ee3f;
-  --lime-soft: rgba(203, 255, 93, 0.1);
-  --lime-line: rgba(203, 255, 93, 0.3);
-  --ink: #0b0b0f;
+  /* Hunch identity v1.0 (playhunch.xyz/brand). Flat fills only — the system
+     retired glows and gradients on the mark. Lime is Hunch, violet-2 is the
+     0G venue accent; both wear the same gate. */
+  --lime: #c8f04f;
+  --lime-line: rgba(200, 240, 79, 0.3);
+  --ink: #08080a;
+  --paper: #f4f4f2;
   --green: #34d399;
   --red: #f87171;
   --amber: #fbbf24;
@@ -232,17 +225,13 @@ button:focus-visible {
 }
 .brand-mark {
   display: block;
-  width: 26px;
-  height: 26px;
-  border-radius: 7px;
+  width: 22px;
+  height: 22px;
   flex: none;
-  box-shadow: 0 0 0 1px rgba(167, 139, 250, 0.28),
-    0 0 20px -5px rgba(139, 92, 246, 0.7);
 }
 .footer-brand .brand-mark {
-  width: 24px;
-  height: 24px;
-  border-radius: 6.5px;
+  width: 20px;
+  height: 20px;
 }
 
 /* Arena  ×  Hunch lockup: Arena leads, Hunch signs it. */
@@ -276,19 +265,15 @@ button:focus-visible {
 }
 .hunch-mark {
   display: block;
-  width: 21px;
-  height: 21px;
-  border-radius: 6px;
+  width: 18px;
+  height: 18px;
   flex: none;
-  box-shadow: 0 0 0 1px rgba(203, 255, 93, 0.3),
-    0 0 18px -4px rgba(203, 255, 93, 0.55);
 }
 .hunch-word {
-  font-family: var(--font-body);
-  font-weight: 900;
-  font-size: 16px;
-  letter-spacing: -0.02em;
-  color: currentColor;
+  display: block;
+  width: 52px;
+  height: 16px;
+  flex: none;
 }
 .nav-links {
   display: flex;
@@ -371,16 +356,13 @@ button:focus-visible {
 }
 /* Arena actions are violet; actions that hand you over to Hunch are lime. */
 .btn-hunch {
-  background: linear-gradient(135deg, var(--lime-2) 0%, var(--lime) 55%, var(--lime-3) 100%);
+  background: var(--lime);
   color: var(--ink);
-  box-shadow: 0 0 0 1px rgba(203, 255, 93, 0.45) inset,
-    0 8px 32px -10px rgba(203, 255, 93, 0.5);
 }
 .btn-hunch:hover {
   color: var(--ink);
   transform: translateY(-1px);
-  box-shadow: 0 0 0 1px rgba(223, 255, 155, 0.62) inset,
-    0 12px 40px -10px rgba(203, 255, 93, 0.68);
+  background: #d5f76c;
 }
 .btn-ghost {
   background: var(--surface);
@@ -1318,8 +1300,8 @@ button:focus-visible {
   height: 520px;
   background: radial-gradient(
     ellipse at center,
-    rgba(203, 255, 93, 0.13) 0%,
-    rgba(203, 255, 93, 0.04) 46%,
+    rgba(200, 240, 79, 0.12) 0%,
+    rgba(200, 240, 79, 0.04) 46%,
     transparent 72%
   );
   pointer-events: none;
@@ -1330,14 +1312,12 @@ button:focus-visible {
 }
 .hunch-band-logo img {
   display: block;
-  height: 52px;
+  height: 54px;
   width: auto;
-  filter: drop-shadow(0 0 34px rgba(203, 255, 93, 0.28));
-  transition: transform 0.2s ease, filter 0.2s ease;
+  transition: transform 0.2s ease;
 }
 .hunch-band-logo:hover img {
   transform: translateY(-2px);
-  filter: drop-shadow(0 0 42px rgba(203, 255, 93, 0.42));
 }
 .hunch-band .kicker {
   justify-content: center;
