@@ -9,11 +9,25 @@ No framework, no build step: hand-written HTML/CSS/JS with self-hosted fonts
 index.html    the page
 styles.css    all styling (dark theme, responsive, reduced-motion aware)
 script.js     nav state, scroll reveals, terminal playback, ticker, copy button
-og.png        1200×630 social share card
-favicon.svg   arena mark
+assets/       Hunch + 0G Arena marks and lockups (see assets/README.md)
+og.png        1200×630 social share card — built from assets/og-card.svg
+favicon.svg   arena mark (the bridge)
 vercel.json   static-deploy config: clean URLs, cache + security headers
 fonts/        woff2 subsets
 ```
+
+## Branding
+
+Two marks on one chassis: the same rounded tile, the same ink glyph. Arena's
+tile is violet and holds a bridge — the 0G Bridge the arena is built on. Hunch's
+is lime and holds an `H`. Anything lime on the page means Hunch: the mark beside
+the Arena wordmark in the nav, the logo heading the operator band, the footer
+signature, and the two CTAs that hand you over to `playhunch.xyz`.
+
+Marks live in `assets/` as outlined SVG (no font dependency); `assets/README.md`
+has the full inventory, the palette and the type used. `og.png`,
+`favicon-32.png` and `apple-touch-icon.png` are rasterised from
+`assets/og-card.svg`, `favicon.svg` and `assets/arena-app-icon.svg`.
 
 ## Local preview
 

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="Hunch">
+  <title>Hunch</title>
+  <defs>
+    <radialGradient id="hunchGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(420 50) rotate(132) scale(500)">
+      <stop stop-color="#8B5CF6" stop-opacity="0.58"/>
+      <stop offset="1" stop-color="#8B5CF6" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="#0B0B0F"/>
+  <rect width="512" height="512" rx="112" fill="url(#hunchGlow)"/>
+  <rect x="112" y="112" width="288" height="288" rx="82" fill="#CBFF5D"/>
+  <path transform="translate(187.97 190.00)" d="M8.50 132.00V0.00H44.30V50.14H91.78V0.00H127.57V132.00H91.78V79.02H44.30V132.00Z" fill="#09090C"/>
+</svg>

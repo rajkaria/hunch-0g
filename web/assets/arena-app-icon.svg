@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="0G Arena">
+  <title>0G Arena</title>
+  <defs>
+    <linearGradient id="arenaTile" x1="144" y1="144" x2="400" y2="400" gradientUnits="userSpaceOnUse"><stop stop-color="#C4B5FD"/><stop offset="1" stop-color="#8B5CF6"/></linearGradient>
+    <radialGradient id="bloom" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(400 70) rotate(130) scale(470)">
+      <stop stop-color="#8B5CF6" stop-opacity="0.5"/><stop offset="1" stop-color="#8B5CF6" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="#0A0813"/>
+  <rect width="512" height="512" rx="112" fill="url(#bloom)"/>
+  <rect x="112" y="112" width="288" height="288" rx="82" fill="url(#arenaTile)"/>
+  <g transform="translate(112 112) scale(3)" stroke="#09090C" stroke-linecap="round" fill="none"><path d="M18 60H78" stroke-width="7"/><path d="M34 60V28" stroke-width="7"/><path d="M62 60V28" stroke-width="7"/><path d="M18 50L34 28Q48 46 62 28L78 50" stroke-width="6"/></g>
+</svg>

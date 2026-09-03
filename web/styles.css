@@ -33,6 +33,13 @@
   src: url("./fonts/inter-latin-600-normal.woff2") format("woff2");
 }
 @font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url("./fonts/inter-latin-900-normal.woff2") format("woff2");
+}
+@font-face {
   font-family: "JetBrains Mono";
   font-style: normal;
   font-weight: 400;
@@ -62,6 +69,13 @@
   --violet-2: #a78bfa;
   --violet-3: #c4b5fd;
   --violet-deep: #4c1d95;
+  /* Hunch brand — the operator's palette. Anything that *is* Hunch wears lime. */
+  --lime: #cbff5d;
+  --lime-2: #dfff9b;
+  --lime-3: #b6ee3f;
+  --lime-soft: rgba(203, 255, 93, 0.1);
+  --lime-line: rgba(203, 255, 93, 0.3);
+  --ink: #0b0b0f;
   --green: #34d399;
   --red: #f87171;
   --amber: #fbbf24;
@@ -216,16 +230,65 @@ button:focus-visible {
   background-clip: text;
   color: transparent;
 }
-.brand-sub {
+.brand-mark {
+  display: block;
+  width: 26px;
+  height: 26px;
+  border-radius: 7px;
+  flex: none;
+  box-shadow: 0 0 0 1px rgba(167, 139, 250, 0.28),
+    0 0 20px -5px rgba(139, 92, 246, 0.7);
+}
+.footer-brand .brand-mark {
+  width: 24px;
+  height: 24px;
+  border-radius: 6.5px;
+}
+
+/* Arena  ×  Hunch lockup: Arena leads, Hunch signs it. */
+.brand-lockup {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  min-width: 0;
+}
+.brand-rule {
+  width: 1px;
+  height: 20px;
+  background: var(--border-strong);
+  flex: none;
+}
+.brand-by {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  color: var(--text-2);
+}
+.brand-by:hover {
+  color: var(--text);
+}
+.brand-by .by-label {
   font-family: var(--font-mono);
   font-size: 10px;
-  font-weight: 400;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.16em;
   color: var(--text-3);
-  border: 1px solid var(--border);
-  border-radius: 99px;
-  padding: 3px 9px;
-  margin-left: 2px;
+}
+.hunch-mark {
+  display: block;
+  width: 21px;
+  height: 21px;
+  border-radius: 6px;
+  flex: none;
+  box-shadow: 0 0 0 1px rgba(203, 255, 93, 0.3),
+    0 0 18px -4px rgba(203, 255, 93, 0.55);
+}
+.hunch-word {
+  font-family: var(--font-body);
+  font-weight: 900;
+  font-size: 16px;
+  letter-spacing: -0.02em;
+  color: currentColor;
 }
 .nav-links {
   display: flex;
@@ -305,6 +368,19 @@ button:focus-visible {
   transform: translateY(-1px);
   box-shadow: 0 0 0 1px rgba(196, 181, 253, 0.5) inset,
     0 12px 40px -8px rgba(139, 92, 246, 0.7);
+}
+/* Arena actions are violet; actions that hand you over to Hunch are lime. */
+.btn-hunch {
+  background: linear-gradient(135deg, var(--lime-2) 0%, var(--lime) 55%, var(--lime-3) 100%);
+  color: var(--ink);
+  box-shadow: 0 0 0 1px rgba(203, 255, 93, 0.45) inset,
+    0 8px 32px -10px rgba(203, 255, 93, 0.5);
+}
+.btn-hunch:hover {
+  color: var(--ink);
+  transform: translateY(-1px);
+  box-shadow: 0 0 0 1px rgba(223, 255, 155, 0.62) inset,
+    0 12px 40px -10px rgba(203, 255, 93, 0.68);
 }
 .btn-ghost {
   background: var(--surface);
@@ -1232,11 +1308,49 @@ button:focus-visible {
   );
   pointer-events: none;
 }
+/* the operator's own colour, bleeding up from under the band */
+.hunch-band .glow-lime {
+  position: absolute;
+  top: -220px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 760px;
+  height: 520px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(203, 255, 93, 0.13) 0%,
+    rgba(203, 255, 93, 0.04) 46%,
+    transparent 72%
+  );
+  pointer-events: none;
+}
+.hunch-band-logo {
+  display: inline-block;
+  margin-bottom: 30px;
+}
+.hunch-band-logo img {
+  display: block;
+  height: 52px;
+  width: auto;
+  filter: drop-shadow(0 0 34px rgba(203, 255, 93, 0.28));
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+.hunch-band-logo:hover img {
+  transform: translateY(-2px);
+  filter: drop-shadow(0 0 42px rgba(203, 255, 93, 0.42));
+}
 .hunch-band .kicker {
   justify-content: center;
+  color: var(--lime);
+}
+.hunch-band .kicker::after {
+  content: "";
+  width: 22px;
+  height: 1px;
+  background: var(--lime-line);
 }
 .hunch-band .kicker::before {
-  display: none;
+  background: var(--lime-line);
 }
 .hunch-band h2 {
   font-family: var(--font-display);
@@ -1276,7 +1390,7 @@ button:focus-visible {
   letter-spacing: 0.08em;
 }
 .hunch-domain span {
-  color: var(--violet-2);
+  color: var(--lime);
 }
 
 /* ============================================================
@@ -1292,6 +1406,22 @@ button:focus-visible {
   grid-template-columns: 1.4fr repeat(3, 1fr);
   gap: 40px;
   margin-bottom: 52px;
+}
+.footer-operator {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 18px;
+  color: var(--text-2);
+}
+.footer-operator:hover {
+  color: var(--text);
+}
+.footer-operator .by-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  color: var(--text-3);
 }
 .footer-brand p {
   margin-top: 14px;
@@ -1342,7 +1472,10 @@ button:focus-visible {
   color: var(--text-2);
 }
 .footer-bottom a:hover {
-  color: var(--violet-2);
+  color: var(--lime);
+}
+.footer-bottom .lime {
+  color: var(--lime);
 }
 
 /* ============================================================
@@ -1427,7 +1560,9 @@ button:focus-visible {
   }
   .nav-gh span { display: none; }
   .nav-gh { padding: 9px; }
-  .brand-sub { display: none; }
+  .brand-lockup { gap: 9px; }
+  .brand-rule,
+  .brand-by .by-label { display: none; }
   .hero-eyebrow {
     font-size: 10px;
     letter-spacing: 0.09em;
@@ -1469,6 +1604,14 @@ button:focus-visible {
   }
   .hunch-band {
     padding: 88px 0;
+  }
+}
+
+/* Below ~400px the lockup keeps the Arena wordmark and Hunch's mark;
+   the Hunch wordmark is the first thing to go. */
+@media (max-width: 400px) {
+  .brand-by .hunch-word {
+    display: none;
   }
 }
 
